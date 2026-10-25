@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Learning World | Learn, Play & Grow</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #24243b;
+            background: white;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ANNOUNCEMENT BAR */
+        .announcement {
+            background: #7064d7;
+            color: white;
+            padding: 9px 15px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* TOP INFORMATION BAR */
+        .contact-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 12px 4%;
+            background: #7569d9;
+            color: white;
+            font-size: 13px;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 4%;
+            background: white;
+            box-shadow: 0 2px 10px #0000000d;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: clamp(22px, 3vw, 34px);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            font-size: 38px;
+        }
+
+        .logo-text {
+            background: linear-gradient(
+                90deg,
+                #f06b91,
+                #f6b54b,
+                #43b6ad,
+                #7770dc
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            padding: 10px 14px;
+            border-radius: 25px;
+            color: #41415e;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            background: #414d91;
+            color: white;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 25px;
+            padding: 45px 5% 75px;
+            background: #fff0e6;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            margin: 0 0 25px;
+            font-size: clamp(38px, 5.4vw, 68px);
+            line-height: 1.2;
+            letter-spacing: -2px;
+            color: #15151a;
+        }
+
+        .learn-word {
+            color: #7064d7;
+        }
+
+        .play-word {
+            color: #e9567c;
+        }
+
+        .grow-word {
+            color: #3eaaa7;
+        }
+
+        .hero-text > p {
+            max-width: 600px;
+            margin: 0 0 28px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #383747;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 23px;
+            border-radius: 35px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .primary-button {
+            background: #7568d8;
+            color: white;
+            box-shadow: 0 4px 10px #7568d833;
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 2px solid #414d91;
+            color: #414d91;
+        }
+
+        /* CHILD PICTURE AND MOVING SUN */
+        .hero-art {
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-picture {
+            width: 100%;
+            max-width: 520px;
+            max-height: 420px;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 1;
+            object-fit: contain;
+        }
+
+        .sun {
+            position: absolute;
+            left: 4%;
+            top: 28%;
+            font-size: 60px;
+            z-index: 3;
+            pointer-events: none;
+            animation: floaty 3s ease-in-out infinite;
+        }
+
+        @keyframes floaty {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* CLOUD DIVIDER */
+        .cloud-divider {
+            height: 55px;
+            margin-top: -38px;
+            position: relative;
+            z-index: 4;
+            background:
+                radial-gradient(ellipse at 5% 0%, white 0 40px, transparent 41px),
+                radial-gradient(ellipse at 18% 0%, white 0 48px, transparent 49px),
+                radial-gradient(ellipse at 32% 0%, white 0 38px, transparent 39px),
+                radial-gradient(ellipse at 47% 0%, white 0 54px, transparent 55px),
+                radial-gradient(ellipse at 63% 0%, white 0 40px, transparent 41px),
+                radial-gradient(ellipse at 78% 0%, white 0 48px, transparent 49px),
+                radial-gradient(ellipse at 94% 0%, white 0 45px, transparent 46px);
+        }
+
+        /* ABOUT US SECTION */
+        .about-section {
+            max-width: 950px;
+            margin: 25px auto 50px;
+            padding: 35px 30px;
+            background: #fff8f2;
+            border: 2px solid #ffe0d1;
+            border-radius: 24px;
+            box-shadow: 0 6px 20px #41415e0d;
+        }
+
+        .about-section h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #e45f85;
+            font-size: clamp(27px, 4vw, 36px);
+        }
+
+        .about-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #44445a;
+        }
+
+        .about-signature {
+            text-align: right;
+            font-size: 13px !important;
+            color: #777 !important;
+            margin-bottom: 0;
+        }
+
+        /* LEARNING ACTIVITIES */
+        .learning-section {
+            padding: 35px 5% 65px;
+            text-align: center;
+        }
+
+        .section-title {
+            max-width: 750px;
+            margin: 10px auto;
+            font-size: clamp(26px, 4vw, 36px);
+            line-height: 1.4;
+        }
+
+        .section-title span {
+            color: #d85f8b;
+        }
+
+        .section-description {
+            color: #6b6b7e;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 22px;
+            max-width: 1150px;
+            margin: 35px auto 0;
+        }
+
+        .card {
+            width: 240px;
+            padding: 28px 20px;
+            border-radius: 22px;
+            background: white;
+            border: 1px solid #eeeaf5;
+            box-shadow: 0 7px 25px #41415e10;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px #41415e20;
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            margin: 8px 0;
+            font-size: 23px;
+        }
+
+        .card p {
+            min-height: 48px;
+            color: #69697b;
+            line-height: 1.6;
+        }
+
+        .card-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 11px 18px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .alphabet-card {
+            border-top: 5px solid #f28aa3;
+        }
+
+        .numbers-card {
+            border-top: 5px solid #f5c75f;
+        }
+
+        .rhymes-card {
+            border-top: 5px solid #a59aef;
+        }
+
+        .games-card {
+            border-top: 5px solid #70cbb3;
+        }
+
+        .alphabet-card .card-button {
+            background: #e96b8b;
+        }
+
+        .numbers-card .card-button {
+            background: #dfa72f;
+        }
+
+        .rhymes-card .card-button {
+            background: #8174dc;
+        }
+
+        .games-card .card-button {
+            background: #35a88b;
+        }
+
+        .card-button:hover {
+            filter: brightness(0.95);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 30px 15px;
+            text-align: center;
+            background: #f5f2ff;
+            color: #505078;
+            line-height: 1.8;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* MOBILE RESPONSIVE DESIGN */
+        @media (max-width: 800px) {
+            .navbar {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 40px 7% 70px;
+            }
+
+            .hero-text > p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-art {
+                min-height: 300px;
+                width: 100%;
+                max-width: 520px;
+                margin: 0 auto;
+            }
+
+            .hero-picture {
+                max-height: 340px;
+            }
+
+            .sun {
+                left: 3%;
+                top: 25%;
+                font-size: 48px;
+            }
+
+            .about-section {
+                margin: 20px 15px 40px;
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-bar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .nav-links a {
+                padding: 8px 9px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero-art {
+                min-height: 250px;
+            }
+
+            .hero-picture {
+                max-height: 280px;
+            }
+
+            .cards {
+                gap: 16px;
+            }
+
+            .card {
+                width: min(100%, 320px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sun {
+                animation: none;
+            }
+
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement">
+        🌟 Welcome to Kids Learning World! Learn something new every day! 🌟
+    </div>
+
+    <!-- TOP INFORMATION BAR -->
+    <div class="contact-bar">
+        <span>❤️ A Happy Place for Little Learners</span>
+        <span>📚 Learn • Play • Grow</span>
+        <span>⭐ Made by Naksh Yadav</span>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon"></span>
+            <span class="logo-text">Kids Learning World</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="#about">About us</a>
+            <a href="#learning">Learning</a>
+            <a href="alphabet.html">Alphabet</a>
+            <a href="numbers.html">Numbers</a>
+            <a href="rhymes.html">Rhymes</a>
+            <a href="games.html">Games</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="welcome">
+
+        <div class="hero-text">
+            <h1>
+                A Place to
+                <span class="learn-word">Learn,</span><br>
+                <span class="play-word">Play</span> &amp;
+                <span class="grow-word">Grow</span>
+            </h1>
+
+            <p>
+                A happy and colorful world where little learners
+                discover letters, count numbers, enjoy rhymes,
+                and play fun educational games every day.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#learning" class="button primary-button">
+                    ✨ Start Learning
+                </a>
+
+                <a href="games.html" class="button secondary-button">
+                    ♥ Play a Game
+                </a>
+            </div>
+        </div>
+
+        <!-- YOUR CHILD PICTURE AND MOVING SUN -->
+        <div class="hero-art">
+            <img
+                src="child.jpg"
+                alt="A child enjoying a colorful rainbow scene"
+                class="hero-picture"
+            >
+
+            <div class="sun" aria-hidden="true">☀️</div>
+        </div>
+
+    </section>
+
+    <!-- CLOUD DIVIDER -->
+    <div class="cloud-divider"></div>
+
+    <!-- ABOUT US SECTION -->
+    <section class="about-section" id="about">
+
+        <h2>About Us </h2>
+
+        <p>
+            Welcome to Kids Learning World, a fun and colorful place
+            where children learn, play, and grow!
+        </p>
+
+        <p>
+            Our website makes learning enjoyable through alphabet
+            activities, number practice, nursery rhymes, and exciting
+            educational games.
+        </p>
+
+        <p>
+            <strong>Our mission</strong> is to help little learners
+            explore new things, build confidence, and develop a love
+            for learning in a fun and friendly environment.
+        </p>
+
+        <p>
+                    🌟 Learn something new. Play every day. Keep smiling!
+        </p>
+
+        <p class="about-signature">
+            — by Naksh Yadav
+        </p>
+
+    </section>
+
+    <!-- LEARNING ACTIVITIES -->
+    <section class="learning-section" id="learning">
+
+        <h2 class="section-title">
+            A Safe and <span>Happy Place to Explore</span>
+        </h2>
+
+        <p class="section-description">
+            Choose an activity, discover something new, and have fun learning!
+        </p>
+
+        <div class="cards">
+
+            <!-- ALPHABET -->
+            <div class="card alphabet-card">
+                <div class="card-icon">🔤</div>
+                <h3>Alphabet</h3>
+                <p>Discover A to Z with letters, pictures, and words.</p>
+                <a href="alphabet.html" class="card-button">
+                    Start Learning →
+                </a>
+            </div>
+
+            <!-- NUMBERS -->
+            <div class="card numbers-card">
+                <div class="card-icon">🔢</div>
+                <h3>Numbers</h3>
+                <p>Explore numbers from 1 to 20 and practise counting.</p>
+                <a href="numbers.html" class="card-button">
+                    Count Now →
+                </a>
+            </div>
+
+            <!-- RHYMES -->
+            <div class="card rhymes-card">
+                <div class="card-icon">🎵</div>
+                <h3>Rhymes</h3>
+                <p>Listen to fun nursery rhymes and sing along.</p>
+                <a href="rhymes.html" class="card-button">
+                    Sing Along →
+                </a>
+            </div>
+
+            <!-- GAMES -->
+            <div class="card games-card">
+                <div class="card-icon">🎮</div>
+                <h3>Games</h3>
+                <p>Test your knowledge with quizzes and memory games.</p>
+                <a href="games.html" class="card-button">
+                    Play Games →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>🌈 <strong>Kids Learning World</strong> 🌈</p>
+        <p>Learn • Play • Sing • Grow</p>
+        <p>Made with ❤️ by Naksh Yadav</p>
+    </footer>
+
+</body>
+</html>

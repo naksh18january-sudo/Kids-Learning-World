@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn the Alphabet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1> Learn the Alphabet</h1>
+    <p>Let's learn A to Z!</p>
+</header>
+
+<main>
+
+    <h2>My Alphabet Friends 🌈</h2>
+    <p>🔊 Click any letter to hear it!</p>
+
+    <div class="alphabet">
+
+        <div class="letter">
+            <h2>A</h2>
+            <img src="apple.jpg" alt="Apple">
+            <p>🍎 Apple</p>
+        </div>
+
+        <div class="letter">
+            <h2>B</h2>
+            <img src="ball.jpg" alt="Ball">
+            <p>⚽ Ball</p>
+        </div>
+
+        <div class="letter">
+            <h2>C</h2>
+            <img src="cat.jpg" alt="Cat">
+            <p>🐱 Cat</p>
+        </div>
+
+        <div class="letter">
+            <h2>D</h2>
+            <img src="dog.jpg" alt="Dog">
+            <p>🐶 Dog</p>
+        </div>
+
+        <div class="letter">
+            <h2>E</h2>
+            <img src="elephant.jpg" alt="Elephant">
+            <p>🐘 Elephant</p>
+        </div>
+
+        <div class="letter">
+            <h2>F</h2>
+            <img src="fish.jpg" alt="Fish">
+            <p>🐟 Fish</p>
+        </div>
+
+        <div class="letter">
+            <h2>G</h2>
+            <img src="giraffe.jpg" alt="Giraffe">
+            <p>🦒 Giraffe</p>
+        </div>
+
+        <div class="letter">
+            <h2>H</h2>
+            <img src="house.jpg" alt="House">
+            <p>🏠 House</p>
+        </div>
+
+        <div class="letter">
+            <h2>I</h2>
+            <img src="icecream.jpg" alt="Ice Cream">
+            <p>🍦 Ice Cream</p>
+        </div>
+
+        <div class="letter">
+            <h2>J</h2>
+            <img src="juice.jpg" alt="Juice">
+            <p>🧃 Juice</p>
+        </div>
+
+        <div class="letter">
+            <h2>K</h2>
+            <img src="kite.jpg" alt="Kite">
+            <p>🪁 Kite</p>
+        </div>
+
+        <div class="letter">
+            <h2>L</h2>
+            <img src="lion.jpg" alt="Lion">
+            <p>🦁 Lion</p>
+        </div>
+
+        <div class="letter">
+            <h2>M</h2>
+            <img src="monkey.jpg" alt="Monkey">
+            <p>🐒 Monkey</p>
+        </div>
+
+        <div class="letter">
+            <h2>N</h2>
+            <img src="nest.jpg" alt="Nest">
+            <p>🪺 Nest</p>
+        </div>
+
+        <div class="letter">
+            <h2>O</h2>
+            <img src="orange.jpg" alt="Orange">
+            <p>🍊 Orange</p>
+        </div>
+
+        <div class="letter">
+            <h2>P</h2>
+            <img src="panda.jpg" alt="Panda">
+            <p>🐼 Panda</p>
+        </div>
+
+        <div class="letter">
+            <h2>Q</h2>
+            <img src="queen.jpg" alt="Queen">
+            <p>👑 Queen</p>
+        </div>
+
+        <div class="letter">
+            <h2>R</h2>
+            <img src="rainbow.jpg" alt="Rainbow">
+            <p>🌈 Rainbow</p>
+        </div>
+
+        <div class="letter">
+            <h2>S</h2>
+            <img src="sun.jpg" alt="Sun">
+            <p>☀️ Sun</p>
+        </div>
+
+        <div class="letter">
+            <h2>T</h2>
+            <img src="tiger.jpg" alt="Tiger">
+            <p>🐯 Tiger</p>
+        </div>
+
+        <div class="letter">
+            <h2>U</h2>
+            <img src="umbrella.jpg" alt="Umbrella">
+            <p>☂️ Umbrella</p>
+        </div>
+
+        <div class="letter">
+            <h2>V</h2>
+            <img src="van.jpg" alt="Van">
+            <p>🚐 Van</p>
+        </div>
+
+        <div class="letter">
+            <h2>W</h2>
+            <img src="whale.jpg" alt="Whale">
+            <p>🐋 Whale</p>
+        </div>
+
+        <div class="letter">
+            <h2>X</h2>
+            <img src="xylophone.jpg" alt="Xylophone">
+            <p>🎼 Xylophone</p>
+        </div>
+
+        <div class="letter">
+            <h2>Y</h2>
+            <img src="yoyo.jpg" alt="Yo-Yo">
+            <p>🪀 Yo-Yo</p>
+        </div>
+
+        <div class="letter">
+            <h2>Z</h2>
+            <img src="zebra.jpg" alt="Zebra">
+            <p>🦓 Zebra</p>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <a href="index.html">🏠 Back Home</a>
+
+</main>
+
+<script>
+
+function speak(text) {
+
+    speechSynthesis.cancel();
+
+    let voice = new SpeechSynthesisUtterance(text);
+
+    speechSynthesis.speak(voice);
+}
+
+document.querySelectorAll(".letter").forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+        let letter = card.querySelector("h2").textContent;
+
+        let word = card.querySelector("p").textContent;
+
+        word = word.replace(/^[^\w]+/u, "");
+
+        speak(letter + " for " + word);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

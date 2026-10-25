@@ -1,0 +1,645 @@
+/* =========================
+   GENERAL PAGE
+========================= */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    /* Classroom Background */
+    background-image: url("classroom-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background: white;
+    color: black;
+    padding: 25px;
+}
+
+header h1 {
+    margin: 5px;
+    font-size: 38px;
+}
+
+header p {
+    margin: 8px;
+    font-size: 20px;
+}
+
+.creator {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+main {
+    padding: 35px 20px;
+}
+
+main h2 {
+    font-size: 28px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 220px;
+    padding: 25px;
+
+    /* Transparent white cards */
+    background: rgba(255, 255, 255, 0.92);
+
+    border-radius: 15px;
+    box-shadow: 0 4px 12px #cccccc;
+}
+
+.card h3 {
+    font-size: 24px;
+}
+
+.card p {
+    font-size: 18px;
+}
+
+
+/* =========================
+   LEARN BUTTON
+========================= */
+
+.learn-button {
+    display: inline-block;
+    padding: 10px 20px;
+
+    /* Plain white button */
+    background: white;
+    color: black;
+
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-weight: bold;
+
+    border: 2px solid #cccccc;
+}
+
+.learn-button:hover {
+    background: #eeeeee;
+}
+
+
+/* =========================
+   ALPHABET & NUMBER CARDS
+========================= */
+
+.alphabet {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.letter {
+    width: 150px;
+    padding: 20px;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border-radius: 15px;
+    box-shadow: 0 4px 10px #cccccc;
+
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.letter:hover {
+    transform: scale(1.08);
+}
+
+.letter h2 {
+    font-size: 45px;
+    margin: 5px;
+}
+
+.letter p {
+    font-size: 20px;
+}
+
+.letter img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+
+/* =========================
+   RHYME CARDS
+========================= */
+
+.rhyme-card {
+    width: 320px;
+    padding: 25px;
+    line-height: 1.6;
+    transition: transform 0.2s;
+}
+
+.rhyme-card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* Twinkle Twinkle */
+
+.star-card {
+    background: #fff3b0;
+}
+
+
+/* Baa Baa Black Sheep */
+
+.sheep-card {
+    background: #d9f7ff;
+}
+
+
+/* Wheels on the Bus */
+
+.bus-card {
+    background: #ffd6e7;
+}
+
+
+.rhyme-card h3 {
+    font-size: 24px;
+}
+
+.rhyme-card p {
+    font-size: 17px;
+}
+
+.rhyme-card audio {
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+
+    background: white;
+    color: black;
+}
+
+/* Back Home button on Alphabet and Numbers pages and Rhymes and Games */
+main > a {
+    display: inline-block;
+    background-color: #5d50bd;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-decoration: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px #00000020;
+}
+
+main > a:hover {
+    background-color: #5d50bd;
+    color: white;
+    text-decoration: none;
+}
+
+/* =========================
+   CLOUD-SHAPED ALPHABET CARDS
+========================= */
+
+.alphabet .letter {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 25px 10px 18px;
+    overflow: visible;
+}
+
+/* White cloud background */
+.alphabet .letter::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 18px 0 0;
+    background:
+        radial-gradient(circle at 18% 25%, white 0 24px, transparent 25px),
+        radial-gradient(circle at 42% 10%, white 0 32px, transparent 33px),
+        radial-gradient(circle at 70% 15%, white 0 30px, transparent 31px),
+        radial-gradient(circle at 88% 30%, white 0 23px, transparent 24px),
+        linear-gradient(white, white);
+    border-radius: 35px;
+    filter: drop-shadow(0 4px 5px #00000020);
+}
+
+/* Keep letters and pictures clear */
+.alphabet .letter h2 {
+    background: transparent;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.alphabet .letter img {
+    position: relative;
+    z-index: 1;
+}
+
+.alphabet .letter p {
+    position: relative;
+    z-index: 1;
+}
+
+/* Cloud cards on smaller screens */
+@media (max-width: 700px) {
+    .alphabet .letter {
+        padding: 25px 6px 15px;
+    }
+}
+
+/* =========================
+   NUMBERS - FULL PASTEL CARDS
+========================= */
+
+.number-container > :nth-child(4n + 1),
+.numbers > :nth-child(4n + 1),
+#numbers > :nth-child(4n + 1),
+.number-card:nth-child(4n + 1),
+.number-box:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+.number-container > :nth-child(4n + 2),
+.numbers > :nth-child(4n + 2),
+#numbers > :nth-child(4n + 2),
+.number-card:nth-child(4n + 2),
+.number-box:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+.number-container > :nth-child(4n + 3),
+.numbers > :nth-child(4n + 3),
+#numbers > :nth-child(4n + 3),
+.number-card:nth-child(4n + 3),
+.number-box:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+.number-container > :nth-child(4n + 4),
+.numbers > :nth-child(4n + 4),
+#numbers > :nth-child(4n + 4),
+.number-card:nth-child(4n + 4),
+.number-box:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+
+/* =========================
+   GAMES - FULL PASTEL CARDS
+========================= */
+
+.game-container > :nth-child(4n + 1),
+.games > :nth-child(4n + 1),
+.game-card:nth-child(4n + 1),
+.game:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+.game-container > :nth-child(4n + 2),
+.games > :nth-child(4n + 2),
+.game-card:nth-child(4n + 2),
+.game:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+.game-container > :nth-child(4n + 3),
+.games > :nth-child(4n + 3),
+.game-card:nth-child(4n + 3),
+.game:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+.game-container > :nth-child(4n + 4),
+.games > :nth-child(4n + 4),
+.game-card:nth-child(4n + 4),
+.game:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+
+/* Same large-card appearance as the Rhymes page */
+.number-card,
+.number-box,
+.game-card,
+.game {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 25px;
+}
+
+/* =========================
+   NUMBERS - FULL PASTEL CARDS
+========================= */
+
+.number-container > :nth-child(4n + 1),
+.numbers > :nth-child(4n + 1),
+#numbers > :nth-child(4n + 1),
+.number-card:nth-child(4n + 1),
+.number-box:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+.number-container > :nth-child(4n + 2),
+.numbers > :nth-child(4n + 2),
+#numbers > :nth-child(4n + 2),
+.number-card:nth-child(4n + 2),
+.number-box:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+.number-container > :nth-child(4n + 3),
+.numbers > :nth-child(4n + 3),
+#numbers > :nth-child(4n + 3),
+.number-card:nth-child(4n + 3),
+.number-box:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+.number-container > :nth-child(4n + 4),
+.numbers > :nth-child(4n + 4),
+#numbers > :nth-child(4n + 4),
+.number-card:nth-child(4n + 4),
+.number-box:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+
+/* =========================
+   GAMES - FULL PASTEL CARDS
+========================= */
+
+.game-container > :nth-child(4n + 1),
+.games > :nth-child(4n + 1),
+.game-card:nth-child(4n + 1),
+.game:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+.game-container > :nth-child(4n + 2),
+.games > :nth-child(4n + 2),
+.game-card:nth-child(4n + 2),
+.game:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+.game-container > :nth-child(4n + 3),
+.games > :nth-child(4n + 3),
+.game-card:nth-child(4n + 3),
+.game:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+.game-container > :nth-child(4n + 4),
+.games > :nth-child(4n + 4),
+.game-card:nth-child(4n + 4),
+.game:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+
+/* Same large-card appearance as the Rhymes page */
+.number-card,
+.number-box,
+.game-card,
+.game {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 25px;
+}
+
+/* NUMBER CARDS - FULL PASTEL COLOURS */
+
+body:has(header h1:first-child) .alphabet .letter:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+body:has(header h1:first-child) .alphabet .letter:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+body:has(header h1:first-child) .alphabet .letter:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+body:has(header h1:first-child) .alphabet .letter:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+/* NUMBER CARDS - PASTEL RHYME COLOURS */
+
+.number-cards .letter:nth-child(4n + 1) {
+    background: #fff3b0 !important;
+}
+
+.number-cards .letter:nth-child(4n + 2) {
+    background: #d9f7ff !important;
+}
+
+.number-cards .letter:nth-child(4n + 3) {
+    background: #ffd6e7 !important;
+}
+
+.number-cards .letter:nth-child(4n + 4) {
+    background: #dff7df !important;
+}
+
+/* Floating cloud card animation */
+@keyframes floatCloud {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Apply floating animation to cloud cards */
+.cloud-card,
+.rhyme-card,
+.number-card,
+.game-card {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .cloud-card,
+    .rhyme-card,
+    .number-card,
+    .game-card {
+        animation: none;
+    }
+}
+
+/* =====================================
+   FLOATING ANIMATION FOR LEARNING CARDS
+===================================== */
+
+@keyframes floatCloud {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Homepage cards */
+.card {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Alphabet and Numbers cards */
+.letter {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Quiz sections */
+.quiz-box {
+    animation: floatCloud 3.5s ease-in-out infinite;
+}
+
+/* Memory game section */
+.memory-box {
+    animation: floatCloud 3.5s ease-in-out infinite;
+}
+
+/* Rhyme cards */
+.rhyme-card {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Cloud cards */
+.cloud-card {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Game cards */
+.game-card {
+    animation: floatCloud 3s ease-in-out infinite;
+}
+
+/* Stop animations when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .letter,
+    .quiz-box,
+    .memory-box,
+    .rhyme-card,
+    .cloud-card,
+    .game-card {
+        animation: none;
+    }
+}
+
+/* ==================================
+   COLOURFUL ANIMATED HOMEPAGE BUTTONS
+================================== */
+
+/* Colourful buttons */
+button,
+.card a button {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+    color: #333333;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 22px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+}
+
+/* Button animation when the mouse moves over it */
+button:hover,
+.card a button:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Small press animation */
+button:active,
+.card a button:active {
+    transform: scale(0.96);
+}
+
+/* Keyboard accessibility */
+button:focus-visible,
+.card a button:focus-visible {
+    outline: 3px solid #6c63ff;
+    outline-offset: 3px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    button,
+    .card a button {
+        transition: none;
+    }
+
+    button:hover,
+    .card a button:hover,
+    button:active,
+    .card a button:active {
+        transform: none;
+    }
+}

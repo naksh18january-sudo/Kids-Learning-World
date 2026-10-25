@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Kids Learning World</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        main {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .game-box {
+            max-width: 520px;
+            margin: 28px auto;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px #cccccc;
+            color: #333;
+        }
+
+        #alphabet-quiz { background: #fff3b0; }
+        #number-quiz { background: #d9f7ff; }
+        #memory-game { background: #ffd6e7; }
+        #picture-guess-game { background: #dff4ff; }
+        #word-scramble-game { background: #fff4d6; }
+
+        .game-box h2 { color: #333; }
+
+        .answer-button {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            background: white;
+            color: #333;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .answer-button:hover:not(:disabled) {
+            background: #e8f5e9;
+        }
+
+        .answer-button:disabled { cursor: default; }
+
+        .game-button {
+            padding: 11px 20px;
+            margin: 8px 4px;
+            border: 0;
+            border-radius: 10px;
+            background: #b8e6cf;
+            color: #222;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .feedback {
+            min-height: 26px;
+            font-weight: bold;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            min-height: 75px;
+            border: 2px solid #b8e6b8;
+            border-radius: 12px;
+            background: #dff7df;
+            font-size: 29px;
+            cursor: pointer;
+        }
+
+        .memory-card.matched {
+            background: #c8f7c5;
+            cursor: default;
+        }
+
+        .memory-card:disabled { opacity: 1; }
+
+        .game-picture {
+            font-size: 65px;
+            margin: 15px;
+        }
+
+        .scramble-word {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .scramble-input {
+            box-sizing: border-box;
+            width: 90%;
+            max-width: 320px;
+            padding: 12px;
+            border: 2px solid #f0bd58;
+            border-radius: 10px;
+            font-size: 17px;
+            text-transform: uppercase;
+        }
+
+        #word-scramble-game button:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        footer {
+            position: static !important;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 35px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            main { padding: 10px; }
+
+            .game-box {
+                padding: 17px;
+                margin: 20px auto;
+            }
+
+            .memory-card {
+                min-height: 60px;
+                font-size: 24px;
+            }
+
+            .scramble-word {
+                font-size: 26px;
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Play Games</h1>
+    <p>Play • Learn • Earn Stars!</p>
+</header>
+
+<main>
+    <h2>🎉 Fun Learning Games</h2>
+    <p>Learn while playing!</p>
+
+    <!-- ALPHABET QUIZ -->
+    <section class="game-box" id="alphabet-quiz">
+        <h2>🔤 Alphabet Quiz</h2>
+        <h3 id="alphabet-question"></h3>
+        <div id="alphabet-answers"></div>
+        <p class="feedback" id="alphabet-feedback">Choose your answer!</p>
+        <p>⭐ Score: <span id="alphabet-score">0</span></p>
+        <p id="alphabet-progress-line">
+            Question: <span id="alphabet-progress">1</span> of 10
+        </p>
+        <button class="game-button" id="alphabet-next" hidden>
+            Next Question ➡️
+        </button>
+    </section>
+
+    <!-- NUMBER QUIZ -->
+    <section class="game-box" id="number-quiz">
+        <h2>🔢 Number Quiz</h2>
+        <h3 id="number-question"></h3>
+        <div id="number-answers"></div>
+        <p class="feedback" id="number-feedback">Choose your answer!</p>
+        <p>⭐ Score: <span id="number-score">0</span></p>
+        <p id="number-progress-line">
+            Question: <span id="number-progress">1</span> of 10
+        </p>
+        <button class="game-button" id="number-next" hidden>
+            Next Question ➡️
+        </button>
+    </section>
+
+    <!-- MEMORY MATCH GAME -->
+    <section class="game-box" id="memory-game">
+        <h2>🧠 Memory Match Game</h2>
+        <p>Flip the cards and find all 6 matching pairs!</p>
+        <p>👣 Moves: <span id="memory-moves">0</span></p>
+        <p>⭐ Pairs found: <span id="memory-pairs">0</span> / 6</p>
+        <div class="memory-grid" id="memory-grid"></div>
+        <p class="feedback" id="memory-feedback">
+            Tap any two cards to find a matching pair!
+        </p>
+        <button class="game-button" id="memory-restart">
+            🔄 Restart Game
+        </button>
+    </section>
+
+    <!-- GUESS THE PICTURE GAME -->
+    <section class="game-box" id="picture-guess-game">
+        <h2>🖼️ Guess the Picture</h2>
+        <p>Look at the picture and choose its name!</p>
+        <div class="game-picture" id="picture-emoji">🍎</div>
+        <div id="picture-answers"></div>
+        <p class="feedback" id="picture-feedback">Choose the correct answer!</p>
+        <p>⭐ Score: <span id="picture-score">0</span></p>
+        <p>Question: <span id="picture-progress">1</span> / 8</p>
+        <button class="game-button" id="picture-next" hidden>
+            Next Picture ➡️
+        </button>
+        <button class="game-button" id="picture-restart" hidden>
+            🔄 Play Again
+        </button>
+    </section>
+
+    <!-- WORD SCRAMBLE GAME -->
+    <section class="game-box" id="word-scramble-game">
+        <h2>🔤 Word Scramble</h2>
+        <p>Look at the picture and put the letters in order!</p>
+
+        <div class="game-picture" id="scramble-emoji">🍎</div>
+        <div class="scramble-word" id="scrambled-word">P P A L E</div>
+
+        <p>
+            <input
+                class="scramble-input"
+                id="scramble-answer"
+                type="text"
+                placeholder="Type the correct word"
+                autocomplete="off"
+                aria-label="Your word answer"
+            >
+        </p>
+
+        <button class="game-button" id="scramble-check">
+            Check Answer ✓
+        </button>
+
+        <p class="feedback" id="scramble-feedback" aria-live="polite">
+            You can do it! 🌟
+        </p>
+
+        <p>
+            ⭐ Score: <span id="scramble-score">0</span>
+            &nbsp; | &nbsp;
+            Question: <span id="scramble-progress">1</span> / 8
+        </p>
+
+        <button class="game-button" id="scramble-next" hidden>
+            Next Word ➡️
+        </button>
+
+        <button class="game-button" id="scramble-restart" hidden>
+            🔄 Play Again
+        </button>
+    </section>
+
+    <p>
+        <a href="index.html" class="learn-button">🏠 Back Home</a>
+    </p>
+</main>
+
+<!-- FOOTER: KEEP THIS AFTER ALL THE GAMES -->
+<footer>
+    <p>🌟 Keep Learning • Keep Smiling! 🌟</p>
+</footer>
+
+<script>
+/* =========================
+   REUSABLE QUIZ FUNCTION
+========================= */
+
+function createQuiz(config) {
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    const questionEl = document.getElementById(config.question);
+    const answersEl = document.getElementById(config.answers);
+    const feedbackEl = document.getElementById(config.feedback);
+    const scoreEl = document.getElementById(config.score);
+    const progressEl = document.getElementById(config.progress);
+    const progressLine = document.getElementById(config.progressLine);
+    const nextButton = document.getElementById(config.next);
+
+    function showQuestion() {
+        answered = false;
+        const q = config.questions[current];
+
+        questionEl.textContent = config.type === "alphabet"
+            ? "Which word begins with " + q.letter + "?"
+            : q.question;
+
+        feedbackEl.textContent = "Choose your answer!";
+        progressEl.textContent = current + 1;
+        progressLine.hidden = false;
+        nextButton.hidden = true;
+        nextButton.textContent = current === config.questions.length - 1
+            ? "🏆 See Results"
+            : "Next Question ➡️";
+
+        answersEl.innerHTML = "";
+
+        q.answers.forEach(function(answer) {
+            const button = document.createElement("button");
+            button.className = "answer-button";
+            button.textContent = answer;
+
+            button.addEventListener("click", function() {
+                checkAnswer(button, answer, q.correct);
+            });
+
+            answersEl.appendChild(button);
+        });
+    }
+
+    function checkAnswer(button, answer, correct) {
+        if (answered) return;
+        answered = true;
+
+        answersEl.querySelectorAll("button").forEach(function(b) {
+            b.disabled = true;
+        });
+
+        const cleanAnswer = answer.replace(/^[^\p{L}\p{N}]+/u, "");
+
+        if (cleanAnswer === correct) {
+            score++;
+            feedbackEl.textContent = "🎉 Correct! Well done!";
+            button.style.background = "#c8f7c5";
+        } else {
+            feedbackEl.textContent = "😊 Good try! The answer is " + correct + ".";
+            button.style.background = "#ffd6d6";
+
+            answersEl.querySelectorAll("button").forEach(function(b) {
+                if (b.textContent.replace(/^[^\p{L}\p{N}]+/u, "") === correct) {
+                    b.style.background = "#c8f7c5";
+                }
+            });
+        }
+
+        scoreEl.textContent = score;
+        nextButton.hidden = false;
+    }
+
+    function showResults() {
+        questionEl.textContent = "🏆 Quiz Complete!";
+        answersEl.innerHTML =
+            "<h3>You scored " + score + " out of " +
+            config.questions.length + "!</h3>" +
+            "<p>" + (score === config.questions.length
+                ? "🌟 Perfect Score! Amazing!"
+                : "👏 Great effort! Keep learning!") + "</p>";
+
+        feedbackEl.textContent = "";
+        progressLine.hidden = true;
+        nextButton.hidden = true;
+
+        const restart = document.createElement("button");
+        restart.className = "game-button";
+        restart.textContent = "🔄 Play Again";
+        restart.addEventListener("click", restartQuiz);
+        answersEl.appendChild(restart);
+    }
+
+    function restartQuiz() {
+        current = 0;
+        score = 0;
+        scoreEl.textContent = "0";
+        showQuestion();
+    }
+
+    nextButton.addEventListener("click", function() {
+        if (current < config.questions.length - 1) {
+            current++;
+            showQuestion();
+        } else {
+            showResults();
+        }
+    });
+
+    showQuestion();
+}
+
+/* =========================
+   ALPHABET QUIZ QUESTIONS
+========================= */
+
+const alphabetQuestions = [
+    { letter: "A", answers: ["🍎 Apple", "⚽ Ball", "🐱 Cat"], correct: "Apple" },
+    { letter: "B", answers: ["🐶 Dog", "⚽ Ball", "🍎 Apple"], correct: "Ball" },
+    { letter: "C", answers: ["🐱 Cat", "🦁 Lion", "🐟 Fish"], correct: "Cat" },
+    { letter: "D", answers: ["🍊 Orange", "🐶 Dog", "🐘 Elephant"], correct: "Dog" },
+    { letter: "E", answers: ["🐘 Elephant", "🪁 Kite", "🐯 Tiger"], correct: "Elephant" },
+    { letter: "F", answers: ["🐟 Fish", "🍎 Apple", "🦁 Lion"], correct: "Fish" },
+    { letter: "G", answers: ["🏠 House", "🦒 Giraffe", "🐱 Cat"], correct: "Giraffe" },
+    { letter: "H", answers: ["🏠 House", "⚽ Ball", "🐟 Fish"], correct: "House" },
+    { letter: "I", answers: ["🦁 Lion", "🍦 Ice Cream", "🐶 Dog"], correct: "Ice Cream" },
+    { letter: "J", answers: ["🧃 Juice", "🍎 Apple", "🐘 Elephant"], correct: "Juice" }
+];
+
+createQuiz({
+    type: "alphabet",
+    questions: alphabetQuestions,
+    question: "alphabet-question",
+    answers: "alphabet-answers",
+    feedback: "alphabet-feedback",
+    score: "alphabet-score",
+    progress: "alphabet-progress",
+    progressLine: "alphabet-progress-line",
+    next: "alphabet-next"
+});
+
+/* =========================
+   NUMBER QUIZ QUESTIONS
+========================= */
+
+const numberQuestions = [
+    { question: "What number comes after 3?", answers: ["4", "5", "2"], correct: "4" },
+    { question: "What number comes before 7?", answers: ["6", "8", "5"], correct: "6" },
+    { question: "What is 2 + 2?", answers: ["3", "4", "5"], correct: "4" },
+    { question: "Which number is bigger: 5 or 8?", answers: ["5", "8", "3"], correct: "8" },
+    { question: "How many sides does a triangle have?", answers: ["2", "3", "4"], correct: "3" },
+    { question: "What is 5 + 1?", answers: ["5", "6", "7"], correct: "6" },
+    { question: "What number comes after 9?", answers: ["8", "10", "7"], correct: "10" },
+    { question: "How many fingers are on one hand?", answers: ["4", "5", "6"], correct: "5" },
+    { question: "What is 10 - 3?", answers: ["6", "7", "8"], correct: "7" },
+    { question: "Which number is smallest?", answers: ["9", "2", "6"], correct: "2" }
+];
+
+createQuiz({
+    type: "number",
+    questions: numberQuestions,
+    question: "number-question",
+    answers: "number-answers",
+    feedback: "number-feedback",
+    score: "number-score",
+    progress: "number-progress",
+    progressLine: "number-progress-line",
+    next: "number-next"
+});
+
+/* =========================
+   MEMORY MATCH GAME
+========================= */
+
+const memorySymbols = ["🍎", "🐱", "⚽", "🌟", "🦋", "🐸"];
+let memoryDeck = [];
+let firstCard = null;
+let secondCard = null;
+let memoryLocked = false;
+let memoryMoves = 0;
+let memoryPairs = 0;
+let memoryTurn = 0;
+
+const memoryGrid = document.getElementById("memory-grid");
+const memoryFeedback = document.getElementById("memory-feedback");
+
+function startMemoryGame() {
+    memoryTurn++;
+
+    memoryDeck = [...memorySymbols, ...memorySymbols].map(function(symbol) {
+        return { symbol: symbol, matched: false };
+    });
+
+    for (let i = memoryDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [memoryDeck[i], memoryDeck[j]] = [memoryDeck[j], memoryDeck[i]];
+    }
+
+    firstCard = null;
+    secondCard = null;
+    memoryLocked = false;
+    memoryMoves = 0;
+    memoryPairs = 0;
+
+    document.getElementById("memory-moves").textContent = "0";
+    document.getElementById("memory-pairs").textContent = "0";
+    memoryFeedback.textContent = "Tap any two cards to find a matching pair!";
+    memoryGrid.innerHTML = "";
+
+    memoryDeck.forEach(function(card, index) {
+        const button = document.createElement("button");
+        button.className = "memory-card";
+        button.textContent = "❓";
+        button.setAttribute("aria-label", "Hidden card");
+        button.dataset.index = index;
+
+        button.addEventListener("click", function() {
+            flipMemoryCard(button, card);
+        });
+
+        memoryGrid.appendChild(button);
+    });
+}
+
+function flipMemoryCard(button, card) {
+    if (memoryLocked || card.matched || button === firstCard) return;
+
+    button.textContent = card.symbol;
+    button.setAttribute("aria-label", card.symbol);
+
+    if (firstCard === null) {
+        firstCard = button;
+        return;
+    }
+
+    secondCard = button;
+    memoryMoves++;
+    document.getElementById("memory-moves").textContent = memoryMoves;
+
+    const firstData = memoryDeck[Number(firstCard.dataset.index)];
+    const secondData = memoryDeck[Number(secondCard.dataset.index)];
+
+    if (firstData.symbol === secondData.symbol) {
+        firstData.matched = true;
+        secondData.matched = true;
+
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        firstCard.disabled = true;
+        secondCard.disabled = true;
+
+        memoryPairs++;
+        document.getElementById("memory-pairs").textContent = memoryPairs;
+        memoryFeedback.textContent = "🎉 Match found! Great job!";
+
+        firstCard = null;
+        secondCard = null;
+
+        if (memoryPairs === memorySymbols.length) {
+            memoryFeedback.textContent =
+                "🏆 You matched every pair in " + memoryMoves + " moves!";
+        }
+    } else {
+        memoryLocked = true;
+        memoryFeedback.textContent = "😊 Not a match. Try again!";
+
+        const turn = memoryTurn;
+        setTimeout(function() {
+            if (turn !== memoryTurn) return;
+
+            if (firstCard && secondCard) {
+                firstCard.textContent = "❓";
+                firstCard.setAttribute("aria-label", "Hidden card");
+                secondCard.textContent = "❓";
+                secondCard.setAttribute("aria-label", "Hidden card");
+            }
+
+            firstCard = null;
+            secondCard = null;
+            memoryLocked = false;
+        }, 800);
+    }
+}
+
+document.getElementById("memory-restart").addEventListener("click", startMemoryGame);
+startMemoryGame();
+
+/* =========================
+   GUESS THE PICTURE GAME
+========================= */
+
+const pictureQuestions = [
+    { emoji: "🍎", answers: ["Apple", "Ball", "Cat"], correct: "Apple" },
+    { emoji: "⚽", answers: ["Fish", "Ball", "Book"], correct: "Ball" },
+    { emoji: "🐱", answers: ["Dog", "Cat", "Lion"], correct: "Cat" },
+    { emoji: "🐶", answers: ["Dog", "Fish", "Frog"], correct: "Dog" },
+    { emoji: "🦒", answers: ["Horse", "Giraffe", "Tiger"], correct: "Giraffe" },
+    { emoji: "🐟", answers: ["Fish", "Bird", "Cat"], correct: "Fish" },
+    { emoji: "⭐", answers: ["Moon", "Sun", "Star"], correct: "Star" },
+    { emoji: "🍌", answers: ["Banana", "Apple", "Orange"], correct: "Banana" }
+];
+
+let pictureOrder = [];
+let pictureIndex = 0;
+let pictureScore = 0;
+let pictureAnswered = false;
+
+function startPictureGame() {
+    pictureOrder = pictureQuestions.map((_, i) => i);
+
+    for (let i = pictureOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pictureOrder[i], pictureOrder[j]] = [pictureOrder[j], pictureOrder[i]];
+    }
+
+    pictureIndex = 0;
+    pictureScore = 0;
+    document.getElementById("picture-score").textContent = "0";
+    showPictureQuestion();
+}
+
+function showPictureQuestion() {
+    pictureAnswered = false;
+    const q = pictureQuestions[pictureOrder[pictureIndex]];
+
+    document.getElementById("picture-emoji").textContent = q.emoji;
+    document.getElementById("picture-progress").textContent = pictureIndex + 1;
+    document.getElementById("picture-feedback").textContent = "Choose the correct answer!";
+    document.getElementById("picture-next").hidden = true;
+    document.getElementById("picture-restart").hidden = true;
+
+    const answers = document.getElementById("picture-answers");
+    answers.innerHTML = "";
+
+    q.answers.forEach(function(answer) {
+        const button = document.createElement("button");
+        button.className = "answer-button";
+        button.textContent = answer;
+        button.addEventListener("click", function() {
+            if (pictureAnswered) return;
+            pictureAnswered = true;
+
+            answers.querySelectorAll("button").forEach(b => b.disabled = true);
+
+            if (answer === q.correct) {
+                pictureScore++;
+                button.style.background = "#c8f7c5";
+                document.getElementById("picture-feedback").textContent = "🎉 Correct! Well done!";
+            } else {
+                button.style.background = "#ffd6d6";
+                document.getElementById("picture-feedback").textContent =
+                    "Good try! The answer is " + q.correct + ".";
+                answers.querySelectorAll("button").forEach(function(b) {
+                    if (b.textContent === q.correct) b.style.background = "#c8f7c5";
+                });
+            }
+
+            document.getElementById("picture-score").textContent = pictureScore;
+
+            if (pictureIndex < pictureQuestions.length - 1) {
+                document.getElementById("picture-next").hidden = false;
+            } else {
+                document.getElementById("picture-feedback").textContent +=
+                    " Final score: " + pictureScore + " out of 8!";
+                document.getElementById("picture-restart").hidden = false;
+            }
+        });
+
+        answers.appendChild(button);
+    });
+}
+
+document.getElementById("picture-next").addEventListener("click", function() {
+    if (pictureIndex < pictureQuestions.length - 1) {
+        pictureIndex++;
+        showPictureQuestion();
+    }
+});
+
+document.getElementById("picture-restart").addEventListener("click", startPictureGame);
+startPictureGame();
+
+/* =========================
+   WORD SCRAMBLE GAME
+========================= */
+
+const scrambleWords = [
+    { word: "APPLE", emoji: "🍎" },
+    { word: "BALL", emoji: "⚽" },
+    { word: "FISH", emoji: "🐟" },
+    { word: "STAR", emoji: "⭐" },
+    { word: "CAKE", emoji: "🎂" },
+    { word: "BOOK", emoji: "📚" },
+    { word: "LION", emoji: "🦁" },
+    { word: "FROG", emoji: "🐸" }
+];
+
+let scrambleOrder = [];
+let scrambleIndex = 0;
+let scrambleScore = 0;
+let scrambleAnswered = false;
+
+function shuffleLetters(word) {
+    let letters = word.split("");
+
+    // Try several times to avoid displaying the word unchanged.
+    for (let attempt = 0; attempt < 10; attempt++) {
+        for (let i = letters.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [letters[i], letters[j]] = [letters[j], letters[i]];
+        }
+
+        if (letters.join("") !== word) break;
+    }
+
+    return letters.join(" ");
+}
+
+function startScrambleGame() {
+    scrambleOrder = scrambleWords.map((_, i) => i);
+
+    for (let i = scrambleOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [scrambleOrder[i], scrambleOrder[j]] = [scrambleOrder[j], scrambleOrder[i]];
+    }
+
+    scrambleIndex = 0;
+    scrambleScore = 0;
+    document.getElementById("scramble-score").textContent = "0";
+    showScrambleWord();
+}
+
+function showScrambleWord() {
+    scrambleAnswered = false;
+    const item = scrambleWords[scrambleOrder[scrambleIndex]];
+
+    document.getElementById("scramble-emoji").textContent = item.emoji;
+    document.getElementById("scrambled-word").textContent = shuffleLetters(item.word);
+    document.getElementById("scramble-answer").value = "";
+    document.getElementById("scramble-answer").disabled = false;
+    document.getElementById("scramble-check").disabled = false;
+    document.getElementById("scramble-feedback").textContent = "You can do it! 🌟";
+    document.getElementById("scramble-progress").textContent = scrambleIndex + 1;
+    document.getElementById("scramble-next").hidden = true;
+    document.getElementById("scramble-restart").hidden = true;
+}
+
+function checkScrambleAnswer() {
+    if (scrambleAnswered) return;
+
+    const input = document.getElementById("scramble-answer");
+    const feedback = document.getElementById("scramble-feedback");
+    const answer = input.value.trim().toUpperCase();
+
+    if (!answer) {
+        feedback.textContent = "Please type a word first! 😊";
+        return;
+    }
+
+    scrambleAnswered = true;
+    const correct = scrambleWords[scrambleOrder[scrambleIndex]].word;
+
+    if (answer === correct) {
+        scrambleScore++;
+        feedback.textContent = "🎉 Correct! Amazing work!";
+    } else {
+        feedback.textContent = "Good try! The correct word is " + correct + ".";
+    }
+
+    document.getElementById("scramble-score").textContent = scrambleScore;
+    input.disabled = true;
+    document.getElementById("scramble-check").disabled = true;
+
+    if (scrambleIndex < scrambleWords.length - 1) {
+        document.getElementById("scramble-next").hidden = false;
+    } else {
+        feedback.textContent += " Final score: " + scrambleScore + " out of 8! 🌟";
+        document.getElementById("scramble-restart").hidden = false;
+    }
+}
+
+document.getElementById("scramble-check").addEventListener("click", checkScrambleAnswer);
+
+document.getElementById("scramble-answer").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") checkScrambleAnswer();
+});
+
+document.getElementById("scramble-next").addEventListener("click", function() {
+    if (scrambleIndex < scrambleWords.length - 1) {
+        scrambleIndex++;
+        showScrambleWord();
+    }
+});
+
+document.getElementById("scramble-restart").addEventListener("click", startScrambleGame);
+
+startScrambleGame();
+</script>
+
+</body>
+</html>

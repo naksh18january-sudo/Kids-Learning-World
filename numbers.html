@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Numbers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1> Learn Numbers</h1>
+    <p>Let's learn 1 to 20!</p>
+</header>
+
+<main>
+
+    <h2>My Number Friends 🌈</h2>
+
+    <p>🔊 Click any number to hear it!</p>
+
+    <div class="alphabet number-cards">
+
+
+    <div class="letter">
+        <h2>1</h2>
+        <p>🍎</p>
+        <p>One</p>
+    </div>
+
+    <div class="letter">
+        <h2>2</h2>
+        <p>🍌🍌</p>
+        <p>Two</p>
+    </div>
+
+    <div class="letter">
+        <h2>3</h2>
+        <p>🍇🍇🍇</p>
+        <p>Three</p>
+    </div>
+
+    <div class="letter">
+        <h2>4</h2>
+        <p>🍉🍉🍉🍉</p>
+        <p>Four</p>
+    </div>
+
+    <div class="letter">
+        <h2>5</h2>
+        <p>🍊🍊🍊🍊🍊</p>
+        <p>Five</p>
+    </div>
+
+    <div class="letter">
+        <h2>6</h2>
+        <p>🍑🍑🍑🍑🍑🍑</p>
+        <p>Six</p>
+    </div>
+
+    <div class="letter">
+        <h2>7</h2>
+        <p>🍋‍🍋‍🍋‍🍋‍🍋‍🍋‍🍋‍</p>
+        <p>Seven</p>
+    </div>
+
+    <div class="letter">
+        <h2>8</h2>
+        <p>🍍🍍🍍🍍🍍🍍🍍🍍</p>
+        <p>Eight</p>
+    </div>
+
+    <div class="letter">
+        <h2>9</h2>
+        <p>🍐🍐🍐🍐🍐🍐🍐🍐🍐</p>
+        <p>Nine</p>
+    </div>
+
+    <div class="letter">
+        <h2>10</h2>
+        <p>🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒</p>
+        <p>Ten</p>
+    </div>
+
+    <div class="letter">
+        <h2>11</h2>
+        <p>🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓</p>
+        <p>Eleven</p>
+    </div>
+
+    <div class="letter">
+        <h2>12</h2>
+        <p>🥝🥝🥝🥝🥝🥝🥝🥝🥝🥝🥝🥝</p>
+        <p>Twelve</p>
+    </div>
+
+    <div class="letter">
+        <h2>13</h2>
+        <p>🥥🥥🥥🥥🥥🥥🥥🥥🥥🥥🥥🥥🥥</p>
+        <p>Thirteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>14</h2>
+        <p>🥭🥭🥭🥭🥭🥭🥭🥭🥭🥭🥭🥭🥭🥭</p>
+        <p>Fourteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>15</h2>
+        <p>🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑</p>
+        <p>Fifteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>16</h2>
+        <p>🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚🍚</p>
+        <p>Sixteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>17</h2>
+        <p>🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈🍈</p>
+        <p>Seventeen</p>
+    </div>
+
+    <div class="letter">
+        <h2>18</h2>
+        <p>🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅🍅</p>
+        <p>Eighteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>19</h2>
+        <p>🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽🌽</p>
+        <p>Nineteen</p>
+    </div>
+
+    <div class="letter">
+        <h2>20</h2>
+        <p>🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕🥕</p>
+        <p>Twenty</p>
+    </div>
+
+</div>
+
+    <br><br>
+
+    <a href="index.html">🏠 Back Home</a>
+
+</main>
+
+<script>
+
+function speak(text) {
+
+    speechSynthesis.cancel();
+
+    let voice = new SpeechSynthesisUtterance(text);
+
+    speechSynthesis.speak(voice);
+}
+
+document.querySelectorAll(".letter").forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+        let word = card.querySelectorAll("p")[1].textContent;
+
+        speak(word);
+
+    });
+
+
+});
+</script>
+
+</body>
+</html>
